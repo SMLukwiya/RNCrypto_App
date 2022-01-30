@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "626656800425",
+    "project_id": "cryptoapp-5df8b",
+    "storage_bucket": "cryptoapp-5df8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626656800425:android:67e8d3e8ddcea86045c3b8",
+        "android_client_info": {
+          "package_name": "com.rncryptoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626656800425-3gqlt1n3e80bhem2lkiltedu2l2un1j9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rncryptoapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "626656800425-vohgpe1utvfmbvrc6v42579p7n9i21vo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTwHeS2o8m8CM5AIVIeg8ZFjH54yl4Ivs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626656800425-vohgpe1utvfmbvrc6v42579p7n9i21vo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "626656800425-p792l1ujqgbjc43og03un31fc3h3s7k1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.RNCryptoApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
