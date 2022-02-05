@@ -1,17 +1,16 @@
 import React from 'react';
-import { CompositeNavigationProp } from '@react-navigation/core';
-import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
+import { CompositeScreenProps } from '@react-navigation/core';
+import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 
 import home from '../../../components/screens/dashboard/home';;
 import { StackScreenNavigatorProp } from '../'
 
 type RootStackParam = {
     home: undefined;
-    // signup: { params here }
 }
 
-export type AuthScreenNavigationProp = CompositeNavigationProp<
-    StackNavigationProp<RootStackParam, 'home'>,
+export type AuthScreenNavigationProp = CompositeScreenProps<
+    StackScreenProps<RootStackParam, 'home'>,
     StackScreenNavigatorProp
 >
 

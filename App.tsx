@@ -14,6 +14,12 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import SplashScreen from 'react-native-splash-screen';
 
+// icons
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// load icons
+Ionicons.loadFont();
+
 import Entry from './src';
 import { store, persistor } from './src/store';
 

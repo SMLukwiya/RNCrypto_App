@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 import Container from '../../resusable/Container';
-import { AuthScreenNavigationProp } from '../../../routing/auth';
+import { AuthScreenProps } from '../../../routing/auth';
 import { useAppDispatch } from '../../../store';
 
 import { IMAGES, COLORS, SIZES, ButtonType, StatusBarStyle } from '../../../configs';
@@ -14,12 +14,13 @@ const Image = lazy(() => import('../../resusable/Image'));
 const Button = lazy(() => import('../../resusable/Button'));
 const Text = lazy(() => import('../../resusable/Text'));
 
-interface Props {
+interface IProps {
     // navigation: StackScreenProps<StackType, 'authStack'>
-    navigation: AuthScreenNavigationProp
+    navigation: AuthScreenProps<'login'>['navigation'],
+    route: AuthScreenProps<'login'>['route']
 }
 
-const Login: FC<Props> = (props) => {
+const Login: FC<IProps> = ({route, navigation}) => {
     const { height, width } = useWindowDimensions();
 
     const { values, handleChange, errors, handleSubmit, handleBlur, touched } = useFormik({
@@ -34,7 +35,7 @@ const Login: FC<Props> = (props) => {
     })
 
     const forgotPasswordHandler = () => {
-        props.navigation.navigate('login')
+        navigation.navigate('login')
     }
 
     return (
@@ -87,7 +88,7 @@ const Login: FC<Props> = (props) => {
                 <TouchableOpacity onPress={() => {}} activeOpacity={.8} style={styles.forgotPassword}>
                     <Text variant='body' color={COLORS.white} bold={false}>Forgot password?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {}} activeOpacity={.8} style={styles.forgotPassword}>
+                <TouchableOpacity onPress={() => navigation.navigate('createAccountIndex')} activeOpacity={.8} style={styles.forgotPassword}>
                     <Text variant='body' color={COLORS.white} bold={false}>Create your account!</Text>
                 </TouchableOpacity>
             </ScrollView>

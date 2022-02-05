@@ -1,7 +1,7 @@
 import React from "react";
-import { CompositeNavigationProp } from "@react-navigation/native";
-import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { StackNavigationProp } from "@react-navigation/stack";
+import { CompositeScreenProps } from "@react-navigation/native";
+import { createBottomTabNavigator, BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { StackScreenProps } from "@react-navigation/stack";
 
 import homeStack from './home';
 import {RootStackParam} from '../'
@@ -10,9 +10,9 @@ type BottomTabParam = {
     homeStack: undefined
 }
 
-export type StackScreenNavigatorProp = CompositeNavigationProp<
-    BottomTabNavigationProp<BottomTabParam, 'homeStack'>,
-    StackNavigationProp<RootStackParam>
+export type StackScreenNavigatorProp = CompositeScreenProps<
+    BottomTabScreenProps<BottomTabParam, 'homeStack'>,
+    StackScreenProps<RootStackParam>
 >
 
 const Tab = createBottomTabNavigator<BottomTabParam>();

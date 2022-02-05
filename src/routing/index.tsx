@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, StackScreenProps, StackNavigationOptions, StackNavigationProp } from '@react-navigation/stack';
+import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 
 import splash from '../components/screens/splashScreen';
 import authStack from './auth';
@@ -11,7 +11,7 @@ export type RootStackParam = {
     dashboardStack: undefined
 }
 
-export type IndexScreenNavigationProp = StackNavigationProp<RootStackParam, 'splash'>
+export type IndexScreenNavigationProp = StackScreenProps<RootStackParam, 'splash'>
 
 const Stack = createStackNavigator<RootStackParam>();
 

@@ -8,6 +8,7 @@ export const COLORS = {
     secondary: '#292470',
     tetiary: '#4790ba',
     white: '#ffffff',
+    black: '#000000',
     gray: '#bfbfbf',
     purple: '#5e34b3',
     danger: '#ff0000'
