@@ -9,7 +9,8 @@ import { AuthScreenProps } from '../../../routing/auth';
 import { IMAGES, COLORS, SIZES, ButtonType, StatusBarStyle } from '../../../configs';
 
 interface IProps {
-    navigation: AuthScreenProps<'createAccountIndex'>['navigation']
+    navigation: AuthScreenProps<'createAccountSetup'>['navigation'];
+    route: AuthScreenProps<'createAccountSetup'>['route'];
 }
 
 const Input = lazy(() => import('../../resusable/Input'));
@@ -17,16 +18,19 @@ const Image = lazy(() => import('../../resusable/Image'));
 const Button = lazy(() => import('../../resusable/Button'));
 const Text = lazy(() => import('../../resusable/Text'));
 
-const CreateAccount: FC<IProps> = ({navigation}) => {
+const CreateAccountSetup: FC<IProps> = ({navigation, route}) => {
     const {width} = useWindowDimensions();
 
+    const email = route.params.email
+
     const { values, handleChange, errors, handleSubmit, handleBlur, touched } = useFormik({
-        initialValues: { email: ''},
+        initialValues: { username: '', password: ''},
         validationSchema: Yup.object({
-            email: Yup.string().required('Email address is required')
+            username: Yup.string().required('Username address is required'),
+            password: Yup.string().required('Password address is required')
         }),
         onSubmit: async values => {
-            navigation.navigate('createAccountOTP', {email: values.email})
+            navigation.navigate('dashboardStack')
         }
     })
 
@@ -43,19 +47,33 @@ const CreateAccount: FC<IProps> = ({navigation}) => {
                     <Text variant='title' color={COLORS.white} bold={true}>Crypto</Text>
                 </View>
                 <View style={styles.signInTitle}>
-                    <Text variant='subTitle' color={COLORS.white} bold={true}>Hi, Welcome to Cryptok</Text>
+                    <Text variant='subTitle' color={COLORS.white} bold={true}>Hi, You are almost there!</Text>
                 </View>
                 <View style={styles.signInTitle}>
-                    <Text variant='body' color={COLORS.white} bold={false}>Let's get you started, enter your email address!</Text>
+                    <Text variant='body' color={COLORS.white} bold={false}>
+                        Enter your user name, password to get started!
+                    </Text>
+                    <Text variant='body' color={COLORS.tetiary} bold={true}>
+                        {email}
+                    </Text>
                 </View>
                 <Input
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    label={'Email Address'}
-                    placeholder={'e.g, janedoe@gmail.com'}
-                    errorMessage={errors.email}
+                    value={values.username}
+                    onChangeText={handleChange('username')}
+                    label={'User name'}
+                    placeholder={'e.g, janedoe'}
+                    errorMessage={errors.username}
                     disabled={false}
                     secureText={false}
+                />
+                <Input
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    label={'Password'}
+                    placeholder={'e.g, ******'}
+                    errorMessage={errors.password}
+                    disabled={false}
+                    secureText={true}
                 />
                 <Button
                     title={'Continue'}
@@ -88,4 +106,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CreateAccount;
+export default CreateAccountSetup;

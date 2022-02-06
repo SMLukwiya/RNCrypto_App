@@ -12,7 +12,7 @@ const Home: FC = () => {
             barHidden={false}
             bgColor={'transparent'}
         >
-            <View style={{justifyContent: 'center'}}>
+            <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
                 <Text>Home</Text>
             </View>
         </Container>

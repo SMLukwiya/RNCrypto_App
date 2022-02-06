@@ -9,8 +9,8 @@ type RootStackParam = {
     home: undefined;
 }
 
-export type AuthScreenNavigationProp = CompositeScreenProps<
-    StackScreenProps<RootStackParam, 'home'>,
+export type AuthScreenNavigationProp<S extends keyof RootStackParam> = CompositeScreenProps<
+    StackScreenProps<RootStackParam, S>,
     StackScreenNavigatorProp
 >
 

@@ -1,39 +1,58 @@
-import React, {FC, lazy, useState} from 'react';
+import React, {FC, lazy, useEffect, useState, useRef} from 'react';
 import { View, ScrollView, useWindowDimensions, StyleSheet, TouchableOpacity } from 'react-native';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 import Container from '../../resusable/Container';
-import { IMAGES, COLORS, SIZES, ButtonType, StatusBarStyle } from '../../../configs';
+import { AuthScreenProps } from '../../../routing/auth';
+import { IMAGES, COLORS, SIZES, ButtonType, StatusBarStyle, formatTime } from '../../../configs';
 
 interface IProp {
-
+    navigation: AuthScreenProps<'createAccountOTP'>['navigation'];
+    route: AuthScreenProps<'createAccountOTP'>['route'];
 }
 
-const Input = lazy(() => import('../../resusable/Input'));
 const Image = lazy(() => import('../../resusable/Image'));
 const Button = lazy(() => import('../../resusable/Button'));
 const Text = lazy(() => import('../../resusable/Text'));
 
-const CreateAccountOTP: FC<IProp> = (props) => {
+const CreateAccountOTP: FC<IProp> = ({navigation, route}) => {
     const {width} = useWindowDimensions();
 
     const [theCode, setTheCode] = useState('');
+    const [timer, setTimer] = useState(90000); // 90 seconds(millis)
+    const [enable, setEnable] = useState(false)
+    const interval = useRef<any>(null);
 
-    const { values, handleChange, errors, handleSubmit, handleBlur, touched } = useFormik({
-        initialValues: { email: ''},
-        validationSchema: Yup.object({
-            email: Yup.string().required('Email address is required')
-        }),
-        onSubmit: async values => {
-            
-        }
-    })
+    const minutes = Math.floor(timer/1000/60) % 60, secs = Math.floor(timer/1000) % 60;
 
-    const onChnangeHandler = (code: string) => {
+    const onChangeHandler = (code: string) => {
         setTheCode(code)
         console.log(code);
+    }
+
+    const handleSubmit = () => {
+        navigation.navigate('createAccountSetup', {email: route.params.email})
+    }
+
+    const adjustTimerHandler = () => {
+        setTimer((timer) => {
+            if (timer === 0) {
+                setEnable(true);
+                return timer;
+            }
+            const timeLeft = timer - 1000;
+            return timeLeft;
+        }) 
+    }
+
+    useEffect(() => {
+        interval.current = setInterval(adjustTimerHandler, 1000)
+
+        return () => clearInterval(interval.current);
+    }, [])
+
+    const resendCodeHandler = () => {
+        setTimer(90000)
     }
 
     return (
@@ -57,7 +76,7 @@ const CreateAccountOTP: FC<IProp> = (props) => {
 
                 <OTPInputView 
                     pinCount={6}
-                    onCodeChanged={onChnangeHandler}
+                    onCodeChanged={onChangeHandler}
                     onCodeFilled={code => console.log(code)}
                     code={theCode}
                     style={styles.otpInputView}
@@ -67,6 +86,16 @@ const CreateAccountOTP: FC<IProp> = (props) => {
                     secureTextEntry={true}
                     keyboardType='number-pad'
                 />
+
+                <View style={styles.resendCodeContainer}>
+                    <Text variant='body' color={COLORS.white} bold={false}>I didn't receive a code.</Text>
+                    <TouchableOpacity activeOpacity={.8} onPress={enable ? resendCodeHandler : () => {}}>
+                        <Text variant='body' color={COLORS.tetiary} bold={true}>Resend Code</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.timeLeftContainer}>
+                    <Text variant='body' color={COLORS.tetiary} bold={true}>{minutes}:{formatTime(secs)} sec left</Text>
+                </View>
 
                 <Button
                     title={'Continue'}
@@ -111,6 +140,18 @@ const styles = StyleSheet.create({
     },
     codeInputHighlightStyle: {
         borderColor: 'red'
+    },
+    resendCodeContainer: {
+        width: '100%',
+        marginBottom: SIZES.small,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    timeLeftContainer: {
+        width: '100%',
+        marginBottom: SIZES.small,
+        alignItems: 'center'
     }
 })
 

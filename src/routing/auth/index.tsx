@@ -5,6 +5,7 @@ import { createStackNavigator, StackScreenProps, StackNavigationOptions } from '
 import login from '../../components/screens/authentication/login';
 import createAccountIndex from '../../components/screens/authentication/createAccountIndex';
 import createAccountOTP from '../../components/screens/authentication/createAccountOTP';
+import createAccountSetup from '../../components/screens/authentication/createAccountSetup';
 
 // common
 import HeaderLeft from '../../components/resusable/HeaderLeft';
@@ -15,7 +16,8 @@ import { RootStackParam } from '../';
 type RootStackList = {
     login: undefined;
     createAccountIndex: undefined;
-    createAccountOTP: undefined;
+    createAccountOTP: {email: string};
+    createAccountSetup: {email: string}
 }
 
 // create a generic extension
@@ -42,7 +44,7 @@ const auth = () =>
             component={login}
             options={{
                 title: '',
-                headerLeft: () => null
+                headerShown: false
             }}
         />
         <Stack.Screen
@@ -62,9 +64,19 @@ const auth = () =>
                 title: '',
                 headerLeft: () => <HeaderLeft color={COLORS.black} onPress={() => navigation.goBack()} />,
                 headerLeftContainerStyle: { paddingLeft: SIZES.medium}
+            })}
+        />
+        <Stack.Screen
+            name='createAccountSetup'
+            component={createAccountSetup}
+            initialParams={{email: 'some email'}}
+            options={({navigation, route}: any) => ({
+                title: '',
+                headerLeft: () => <HeaderLeft color={COLORS.black} onPress={() => navigation.goBack()} />,
+                headerLeftContainerStyle: { paddingLeft: SIZES.medium}
                 
             })}
-            />
+        />
     </Stack.Navigator>
 
 export default auth;

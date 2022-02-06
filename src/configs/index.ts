@@ -29,3 +29,5 @@ export enum StatusBarStyle {
     dark = 'dark-content',
     light = 'light-content'
 }
+
+export const formatTime = (val: number) => val >= 10 ? `${val}` : `0${val}`;

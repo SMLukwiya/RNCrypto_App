@@ -30,7 +30,7 @@ const Login: FC<IProps> = ({route, navigation}) => {
             password: Yup.string().required('Password is required')
         }),
         onSubmit: async values => {
-            
+            navigation.navigate('dashboardStack');
         }
     })
 
@@ -73,7 +73,7 @@ const Login: FC<IProps> = ({route, navigation}) => {
                         placeholder={'e.g, ******'}
                         errorMessage={errors.password}
                         disabled={false}
-                        secureText={false}
+                        secureText={true}
                      />
                 </View>
 
